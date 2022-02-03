@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  voyager:
+    container_name: voyager
+    image: registry.huc.knaw.nl/vicd/voyager:latest
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
