@@ -6,5 +6,7 @@ services:
     image: registry.huc.knaw.nl/vicd/voyager:latest
     env_file:
       - .env
+    volumes:
+      - ./files:/app/files
     ports:
       - "8000:8000"
