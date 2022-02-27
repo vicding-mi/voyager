@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  voyager:
+    container_name: voyager
+    image: registry.huc.knaw.nl/vicd/voyager:latest
+    env_file:
+      - .env
+    volumes:
+      - ./files:/app/files
+    ports:
+      - "8000:8000"
+
+  nc:
+    container_name: nc
+#    image: registry.huc.knaw.nl/dockerhubproxy/library/nextcloud
+    image: vicding81/nextcloud:latest-installed
+    depends_on:
+      - voyager
+    volumes:
+      - ./files/models:/var/www/html/data/admin/files/Documents/models
+#    docker exec -u www-data nc php occ maintenance:install --admin-user admin --admin-pass ba222ded25d957b900c03bef914333cd
+#    docker exec -u root nc chown -R www-data:root /var/www/html/data/
+#    docker cp files/models nc:/var/www/html/data/admin/files/Documents/models
+#    docker exec -u www-data nc php occ files:scan admin
+    ports:
+      - "8080:80"

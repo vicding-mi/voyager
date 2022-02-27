@@ -1,1 +1,7 @@
 .idea
+
+# ignore nc folder
+nc
+
+# ignore voyager models folder
+files
