@@ -1,4 +1,9 @@
 #!/usr/bin/env sh
+if [ -f nc/html/index.html ]; then
+  echo "Please use start script, creation should run only once"
+  exit
+fi
+echo "Creating new stack, please wait..."
 
 docker-compose -f docker-compose-multiple0.yml up -d
 
