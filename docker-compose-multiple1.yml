@@ -13,11 +13,11 @@ services:
 
   nc:
     container_name: nc
-#    image: registry.huc.knaw.nl/dockerhubproxy/library/nextcloud
-    image: vicding81/nextcloud:latest-installed
+    image: registry.huc.knaw.nl/dockerhubproxy/library/nextcloud
     depends_on:
       - voyager
     volumes:
+      - ./nc/html:/var/www/html
       - ./files/models:/var/www/html/data/admin/files/Documents/models
 #    docker exec -u www-data nc php occ maintenance:install --admin-user admin --admin-pass ba222ded25d957b900c03bef914333cd
 #    docker exec -u root nc chown -R www-data:root /var/www/html/data/

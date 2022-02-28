@@ -21,3 +21,24 @@ Note: _The `-d` option puts the conatiner in daemon mode and keeps it alive_
 ```shell
 docker-compose down
 ```
+
+
+## Run voyager with nextcloud (upload files and editor online)
+### Step 1 run the setup script (Run ONCE)
+This script creates and starts the build
+```shell
+./docker-compose-mutiple-create.sh
+```
+voyager will be running on `http://localhost:8000` while nc will be running on `http://localhost:8080`. 
+
+### Step 2 stop the stack
+This script stops the stack (all the config and data is preserved!)
+```shell
+./docker-compose-mutiple-stop.sh
+```
+
+### Step 3 start the stack 
+This script start the pre-built stack (all the config and data is preserved!)
+```shell
+./docker-compose-mutiple-start.sh
+```
