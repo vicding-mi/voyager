@@ -3,7 +3,7 @@ version: "3"
 services:
   voyager:
     container_name: voyager
-    image: registry.huc.knaw.nl/vicd/voyager:latest
+    image: registry.diginfra.net/vicd/vicd/voyager:latest
 #    env_file:
 #      - .env
     volumes:
@@ -15,7 +15,7 @@ services:
 
   nc:
     container_name: nc
-    image: registry.huc.knaw.nl/dockerhubproxy/library/nextcloud
+    image: registry.diginfra.net/vicd/nextcloud:latest
     depends_on:
       - voyager
     volumes:
