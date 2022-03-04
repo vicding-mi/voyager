@@ -25,8 +25,8 @@ services:
 #    docker exec -u root nc chown -R www-data:root /var/www/html/data/
 #    docker cp files/models nc:/var/www/html/data/admin/files/Documents/models
 #    docker exec -u www-data nc php occ files:scan admin
-#    ports:
-#      - "8080:80"
+    ports:
+      - "8080:80"
     networks:
       - traefik-public
 
