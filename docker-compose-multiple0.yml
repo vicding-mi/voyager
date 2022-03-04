@@ -3,7 +3,7 @@ version: "3"
 services:
   voyager:
     container_name: voyager
-    image: registry.diginfra.net/vicd/vicd/voyager:latest
+    image: registry.diginfra.net/vicd/voyager:latest
 #    env_file:
 #      - .env
     volumes:
