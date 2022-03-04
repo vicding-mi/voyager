@@ -7,7 +7,7 @@ services:
     restart: always
     command:
       - "--api.dashboard=true"
-      - "--api.insecure=flase"
+      - "--api.insecure=false"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.http.address=:80"
