@@ -24,7 +24,7 @@ done
 echo "NC populated"
 
 echo "Installing NC..."
-docker exec -u www-data nc_${USERNAME} php occ maintenance:install --admin-user admin --admin-pass ba222ded25d957b900c03bef914333cd
+docker exec -u www-data nc_${USERNAME} php occ maintenance:install --admin-user admin --admin-pass ${PASSWORD}
 
 echo "Installing text editor..."
 docker exec nc_${USERNAME} curl -L -o /tmp/files_texteditor.tar.gz https://github.com/nextcloud-releases/files_texteditor/releases/download/v2.14.0/files_texteditor.tar.gz
