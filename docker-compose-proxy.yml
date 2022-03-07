@@ -17,8 +17,9 @@ services:
       - "traefik.http.routers.api.entrypoints=http"
       - "traefik.http.routers.api.service=api@internal"
       - "traefik.http.routers.api.middlewares=mywhitelist@docker"
-#      - "traefik.http.middlewares.mywhitelist.ipwhitelist.sourcerange=127.0.0.1/32, 83.85.42.212, 192.87.139.238"
       - "traefik.http.middlewares.mywhitelist.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6"
+      - "traefik.http.routers.api.middlewares=mywhitelis2@docker"
+      - "traefik.http.middlewares.mywhitelis2.ipwhitelist.sourcerange=127.0.0.1/32, 83.85.42.212, 10.24.200.0/24, 194.171.4.192/26"
     ports:
       - "80:80"
     volumes:
