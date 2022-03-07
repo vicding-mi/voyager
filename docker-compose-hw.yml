@@ -14,7 +14,6 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.hw.rule=Host(`hw.${HOSTNAME}`)"
       - "traefik.http.routers.hw.entrypoints=http"
-      - "traefik.http.routers.hw.service=hw@internal"
       - "traefik.http.services.hw.loadbalancer.server.port=80"
     networks:
       - traefik-public
