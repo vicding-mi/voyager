@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 source .env
 if [ -z ${USERNAME+x} ]; then
