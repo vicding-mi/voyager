@@ -1,4 +1,6 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+
+source .env
 
 echo "Starting ..."
 docker-compose -f docker-compose-multiple1.yml up -d
