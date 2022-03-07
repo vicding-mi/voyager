@@ -24,20 +24,38 @@ docker-compose down
 
 
 ## Run voyager with nextcloud (upload files and editor online)
+### Step 0 git clone into different folder and change env file (Run ONCE)
+Clone the repo to a different folder every time
+```shell
+git clone https://github.com/vicding-mi/voyager.git myfolder # please change myfolder every time
+```
+Then change the USERNAME and PASSWORD in the env file
+```shell
+cd myfolder # replace myfolder with your actual folder name
+vim .env
+```
+Sample content of the env file
+```shell
+.
+.
+.
+USERNAME=myuser # this will be part of your domain name
+PASSWORD=mypassword # please make it really safe!!!
+```
 ### Step 1 run the setup script (Run ONCE)
 This script creates and starts the build
 ```shell
 ./docker-compose-multiple-create.sh
 ```
-voyager will be running on `http://localhost:8000` while nc will be running on `http://localhost:8080`. 
+When this script finishes, it will ask you to start the stack
 
-### Step 2 stop the stack
+### How to stop the stack
 This script stops the stack (all the config and data is preserved!)
 ```shell
 ./docker-compose-multiple-stop.sh
 ```
 
-### Step 3 start the stack 
+### How to start the stack 
 This script start the pre-built stack (all the config and data is preserved!)
 ```shell
 ./docker-compose-multiple-start.sh
