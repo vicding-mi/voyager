@@ -24,7 +24,7 @@ docker-compose down
 
 
 ## Run voyager with nextcloud (upload files and editor online)
-### Step 0 git clone into different folder and change env file (Run ONCE)
+### Step 0 git clone into different folder and change env file (Run ONCE per instance)
 Clone the repo to a different folder every time
 ```shell
 git clone https://github.com/vicding-mi/voyager.git myfolder # please change myfolder every time
@@ -42,7 +42,7 @@ Sample content of the env file
 USERNAME=myuser # this will be part of your domain name
 PASSWORD=mypassword # please make it really safe!!!
 ```
-### Step 1 run the setup script (Run ONCE)
+### Step 1 run the setup script (Run ONCE per instance)
 This script creates and starts the build
 ```shell
 ./docker-compose-multiple-create.sh
