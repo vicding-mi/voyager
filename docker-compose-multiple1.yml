@@ -2,7 +2,7 @@ version: "3"
 
 services:
   voyager:
-    container_name: voyager
+    container_name: voyager_${USERNAME}
     image: registry.diginfra.net/vicd/voyager:latest
 #    env_file:
 #      - .env
@@ -20,7 +20,7 @@ services:
       - "traefik.http.services.voyager.loadbalancer.server.port=8000"
 
   nc:
-    container_name: nc
+    container_name: nc_${USERNAME}
     image: registry.diginfra.net/vicd/nextcloud:latest
     depends_on:
       - voyager

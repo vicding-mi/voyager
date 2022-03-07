@@ -2,7 +2,7 @@ version: "3"
 
 services:
   voyager:
-    container_name: voyager
+    container_name: voyager_${USERNAME}
     image: registry.diginfra.net/vicd/voyager:latest
 #    env_file:
 #      - .env
@@ -14,7 +14,7 @@ services:
       - traefik-public
 
   nc:
-    container_name: nc
+    container_name: nc_${USERNAME}
     image: registry.diginfra.net/vicd/nextcloud:latest
     depends_on:
       - voyager
