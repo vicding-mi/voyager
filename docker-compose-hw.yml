@@ -1,0 +1,20 @@
+version: "3"
+
+networks:
+ traefik-public:
+    external:
+      name: traefik-public
+
+services:
+  hw:
+    image: dockercloud/hello-world
+    container_name: hw
+    tty: true
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.hw.rule=Host(`nc.${HOSTNAME}`)"
+      - "traefik.http.routers.hw.entrypoints=http"
+      - "traefik.http.routers.hw.service=hw@internal"
+      - "traefik.http.services.hw.loadbalancer.server.port=80"
+    networks:
+      - traefik-public

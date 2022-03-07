@@ -1,4 +1,14 @@
 #!/usr/bin/env sh
+
+source .env
+if [ -z ${USERNAME+x} ]; then
+  echo "please specify both USERNAME and HOSTNAME in the env file"
+  exit 1
+else
+  echo "USERNAME is set to ${USERNAME}"
+  echo "HOSTNAME is set to ${HOSTNAME}"
+fi
+
 if [ -f nc/html/index.html ]; then
   echo "Please use start script, creation should run only once"
   exit
@@ -41,5 +51,8 @@ docker exec -u www-data nc php occ app:enable files_texteditor
 
 echo "Scanning for newly added files..."
 docker exec -u www-data nc php occ files:scan admin
+
+echo "Adding trusted domain"
+docker exec -u www-data nc php occ config:system:set trusted_domains 2 --value=${USERNAME}.${HOSTNAME}
 
 echo "Ready"
