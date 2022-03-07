@@ -16,7 +16,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.voyager.rule=Host(`voyager.${USERNAME}.${HOSTNAME}`)"
       - "traefik.http.routers.voyager.entrypoints=http"
-      - "traefik.http.routers.voyager.service=voyager@internal"
+#      - "traefik.http.routers.voyager.service=voyager@internal"
       - "traefik.http.services.voyager.loadbalancer.server.port=8000"
 
   nc:
@@ -39,7 +39,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.nc.rule=Host(`nc.${USERNAME}.${HOSTNAME}`)"
       - "traefik.http.routers.nc.entrypoints=http"
-      - "traefik.http.routers.nc.service=nc@internal"
+#      - "traefik.http.routers.nc.service=nc@internal"
       - "traefik.http.services.nc.loadbalancer.server.port=80"
 
 networks:
