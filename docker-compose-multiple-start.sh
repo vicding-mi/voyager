@@ -5,6 +5,9 @@ source .env
 echo "Starting ..."
 docker-compose -f docker-compose-multiple1.yml up -d
 
+echo "Make sure file permission is well set"
+docker exec -u root nc_${USERNAME} chown -R www-data:root /var/www/html/
+
 echo "Scanning for new files..."
 docker exec -u www-data nc_${USERNAME} php occ files:scan admin
 
