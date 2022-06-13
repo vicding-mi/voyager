@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  voyager:
+    container_name: voyager
+    image: registry.diginfra.net/vicd/voyager:latest
+    volumes:
+      - ./files:/app/files
+    networks:
+      - traefik-public
+
+  nc:
+    container_name: nc
+    image: registry.diginfra.net/vicd/nextcloud:latest
+    depends_on:
+      - voyager
+    volumes:
+      - ./nc/html:/var/www/html
+    ports:
+      - "8080:80"
+    networks:
+      - traefik-public
+
+networks:
+  traefik-public:
+    external: true
