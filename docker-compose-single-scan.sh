@@ -15,9 +15,9 @@ get_users() {
 }
 
 create_folder() {
-  echo "creating folder /var/www/html/data/${user}/files/Documents/models"
-  docker exec -u root ${nc_container} mkdir -p /var/www/html/data/${user}/files/Documents/models
-  docker exec -u root ${nc_container} chown -R www-data:root /var/www/html/data/${user}/files/Documents/models
+  echo "creating folder /var/www/html/data/${user}/files/models"
+  docker exec -u root ${nc_container} mkdir -p /var/www/html/data/${user}/files/models
+  docker exec -u root ${nc_container} chown -R www-data:root /var/www/html/data/${user}/files/models
 }
 
 printf "getting users from nc container $nc_container"
@@ -26,7 +26,7 @@ users=$(get_users)
 printf "Make sure file permission is well set..."
 for user in ${users[@]}; do
   echo "checking permission for user: [${user}]"
-  docker exec -u root ${nc_container} chown -R www-data:root /var/www/html/data/${user}/files/Documents/models
+  docker exec -u root ${nc_container} chown -R www-data:root /var/www/html/data/${user}/files/models
     if [ $? -eq "1" ];
     then
       create_folder

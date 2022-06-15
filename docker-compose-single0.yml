@@ -5,7 +5,7 @@ services:
     container_name: voyager
     image: registry.diginfra.net/vicd/voyager:latest
     volumes:
-      - ./files:/app/files
+      - ./data:/app/files
     networks:
       - traefik-public
 
