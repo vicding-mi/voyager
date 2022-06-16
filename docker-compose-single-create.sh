@@ -60,7 +60,7 @@ echo "Scanning for newly added files..."
 docker exec -u www-data nc php occ files:scan admin
 
 echo "Adding trusted domain"
-docker exec -u www-data nc php occ config:system:set trusted_domains 2 --value=nc.${HOSTNAME}
+docker exec -u www-data nc php occ config:system:set trusted_domains 2 --value=files.${HOSTNAME}
 
 echo "Stopping stack after init run"
 ./docker-compose-single-stop.sh
