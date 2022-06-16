@@ -9,7 +9,7 @@ services:
       - --provider-display-name="HuC DI Testauthentication"
       - --client-id=nl_clariah_dev_pure3d_voyager_janpieterk
       - --client-secret=7382ceac-e89e-11ec-8a46-2be05a3234a8
-      - --redirect-url=https://viewer.pure3d.dev.clariah.nl/oauth2/callback
+      - --redirect-url=https://viewer.${HOSTNAME}/oauth2/callback
       - --oidc-issuer-url=https://testauthentication.di.huc.knaw.nl
       - --cookie-secure=false
       - --cookie-secret=Jq7t1en0NDaTM0Zj6Sq18utR
