@@ -5,7 +5,7 @@ services:
     container_name: voyager
     image: registry.diginfra.net/vicd/voyager:latest
     volumes:
-      - ./data:/app/files # path to wd should be /app/files/${user}/files/models
+      - ./nc/html/data:/app/files # path to wd should be /app/files/${user}/files/models
     networks:
       - traefik-public
 #    labels:
@@ -21,7 +21,6 @@ services:
       - voyager
     volumes:
       - ./nc/html:/var/www/html
-      - ./data:/var/www/html/data
     networks:
       - traefik-public
     labels:
