@@ -9,7 +9,7 @@ echo "Make sure file permission is well set"
 docker exec -u root nc chown -R www-data:root /var/www/html/
 
 echo "Scanning for new files..."
-docker exec -u www-data nc php occ files:scan
+docker exec -u www-data nc php occ files:scan --all
 
 echo "### Please use the following link to access nextcloud and voyager ###"
 echo "For nextcloud: https://nc.${HOSTNAME}"
