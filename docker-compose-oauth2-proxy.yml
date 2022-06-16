@@ -2,13 +2,14 @@ version: '3.0'
 services:
   oauth2-proxy:
     container_name: oauth2-proxy
-    image: quay.io/oauth2-proxy/oauth2-proxy:v7.3.0
+    image: registry.huc.knaw.nl/vicd/oauth2-proxy
+    #    image: quay.io/oauth2-proxy/oauth2-proxy:v7.3.0
     command:
       - --provider=oidc
       - --provider-display-name="HuC DI Testauthentication"
       - --client-id=nl_clariah_dev_pure3d_voyager_janpieterk
       - --client-secret=7382ceac-e89e-11ec-8a46-2be05a3234a8
-      - --redirect-url=https://voyager_janpieterk.pure3d.dev.clariah.nl/oauth2/callback
+      - --redirect-url=https://viewer.pure3d.dev.clariah.nl/oauth2/callback
       - --oidc-issuer-url=https://testauthentication.di.huc.knaw.nl
       - --cookie-secure=false
       - --cookie-secret=Jq7t1en0NDaTM0Zj6Sq18utR
@@ -16,13 +17,14 @@ services:
       - --email-domain=*
       - --http-address=0.0.0.0:8080
       - --profile-url=https://testauthentication.di.huc.knaw.nl/OIDC/userinfo
-      - --upstream=http://voyager_janpieterk:8000
-    ports:
-      - "0.0.0.0:8080:8080"
+      - --upstream=http://voyager:8000
     hostname: oauth2-proxy
     restart: always
     networks:
       - traefik-public
+    ports:
+      - "0.0.0.0:8080:8080"
+
 networks:
   traefik-public:
     external: true

@@ -5,14 +5,14 @@ services:
     container_name: voyager
     image: registry.diginfra.net/vicd/voyager:latest
     volumes:
-      - ./data:/app/files # path to pwd should be /app/files/${user}/files/models
+      - ./data:/app/files # path to wd should be /app/files/${user}/files/models
     networks:
       - traefik-public
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.voyager.rule=Host(`voyager.${HOSTNAME}`)"
-      - "traefik.http.routers.voyager.entrypoints=http"
-      - "traefik.http.services.voyager.loadbalancer.server.port=8000"
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.voyager.rule=Host(`viewer.${HOSTNAME}`)"
+#      - "traefik.http.routers.voyager.entrypoints=http"
+#      - "traefik.http.services.voyager.loadbalancer.server.port=8000"
 
   nc:
     container_name: nc
@@ -26,7 +26,7 @@ services:
       - traefik-public
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.nc.rule=Host(`nc.${HOSTNAME}`)"
+      - "traefik.http.routers.nc.rule=Host(`files.${HOSTNAME}`)"
       - "traefik.http.routers.nc.entrypoints=http"
       - "traefik.http.services.nc.loadbalancer.server.port=80"
 
