@@ -25,43 +25,49 @@ docker-compose down
 
 ## Run voyager with nextcloud (upload files and editor online)
 ### Step 0 git clone into different folder and change env file (Run ONCE per instance)
-Clone the repo to a different folder every time
+Clone or download the repo 
 ```shell
 git clone https://github.com/vicding-mi/voyager.git myfolder # please change myfolder every time
 ```
-Then change the USERNAME and PASSWORD in the env file
+Make sure HOSTNAME is correct in the env file
 ```shell
 cd myfolder # replace myfolder with your actual folder name
 vim .env
 ```
 Sample content of the env file
+The hostname is your base url without subdomain, the full url of next cloud will be 
+`nc.<your domain>` while full url of voyager will be `viewer.<your domain>`
+
+The password would be your nextcloud admin password, username is `admin`
 ```shell
 .
 .
 .
-USERNAME=myuser # this will be part of your domain name
+HOSTNAME=pure3d.dev.clariah.nl
 PASSWORD=mypassword # please make it really safe!!!
 ```
 ### Step 1 run the setup script (Run ONCE per instance)
 This script creates and starts the build
 ```shell
-./docker-compose-multiple-create.sh
+./docker-compose-single-create.sh
 ```
 When this script finishes, it will ask you to start the stack
 
 ### How to stop the stack
 This script stops the stack (all the config and data is preserved!)
 ```shell
-./docker-compose-multiple-stop.sh
+./docker-compose-single-stop.sh
 ```
 
 ### How to start the stack 
 This script start the pre-built stack (all the config and data is preserved!)
 ```shell
-./docker-compose-multiple-start.sh
+./docker-compose-single-start.sh
 ```
 
 ## Add cron job to scan for externally added files for nextcloud
+### Note: this section is deprecated, it is only kept here for backward compatibility purpose as there are old containers running
+
 Whenever user saves their work externally, for example, save their work in voyager, 
 they won't see their work automatically in Nextcloud. This is due to the fact that all the 
 externally added files have to be scanned first. 
@@ -79,4 +85,4 @@ scan_script=docker-compose-multiple-scan.sh
 Line 1 sets the working directory of all the instances
 Line 2 sets the job we want to invoke
 
-and be default the cron job runs every 2 minutes, users will see 2 minutes delay. 
+and by default the cron job runs every 2 minutes, users will see 2 minutes delay. 
