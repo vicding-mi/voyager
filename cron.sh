@@ -10,3 +10,5 @@ for file in "$wd"/*; do
     bash $file/$scan_script
   fi
 done
+
+/data/pure3d_dev_new/docker-compose-single-scan.sh
