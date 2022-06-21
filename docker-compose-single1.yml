@@ -16,9 +16,11 @@ services:
       - --cookie-secret=Jq7t1en0NDaTM0Zj6Sq18utR
       - --reverse-proxy=true
       - --email-domain=*
+      #      - --email-domain=<second email domain>
+      #      - --authenticated-emails-file=<path/file.txt>
       - --http-address=0.0.0.0:8080
       - --profile-url=https://testauthentication.di.huc.knaw.nl/OIDC/userinfo
-      - --upstream=http://voyager:8000
+      - --upstream=http://pure3dviewer:8000
     hostname: oauth2-proxy
     restart: always
     networks:
@@ -28,6 +30,7 @@ services:
 
   voyager:
     container_name: voyager
+    hostname: pure3dviewer
     image: registry.diginfra.net/vicd/voyager:latest
     depends_on:
       - oauth2-proxy
