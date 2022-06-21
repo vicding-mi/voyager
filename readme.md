@@ -65,8 +65,21 @@ This script start the pre-built stack (all the config and data is preserved!)
 ./docker-compose-single-start.sh
 ```
 
+## Add cron job to backup files 
+The below file is added to crontab, it will create hourly backup in user folder `backup`
+```shell
+docker-compose-single-backup.sh
+```
+
+
 ## Add cron job to scan for externally added files for nextcloud
-### Note: this section is deprecated, it is only kept here for backward compatibility purpose as there are old containers running
+The below file is added to crontab, it will run every 2 minutes to make sure that the folder permission is well 
+set and newly modified files from voyager are well picked up in next cloud
+```shell
+docker-compose-single-scan.sh
+```
+
+### Note: below section is deprecated, it is only kept here for backward compatibility purpose as there are old containers running
 
 Whenever user saves their work externally, for example, save their work in voyager, 
 they won't see their work automatically in Nextcloud. This is due to the fact that all the 
