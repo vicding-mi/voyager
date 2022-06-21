@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-nc_container="nc_janpieterk"
+nc_container="nc"
 get_users() {
   users=$(docker exec -u www-data ${nc_container} php occ user:list)
   oldIfs=IFS
