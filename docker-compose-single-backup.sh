@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
+num_day_before_full="7D"
+num_backup_to_keep="2"
 nc_container="nc"
+
 get_users() {
   users=$(docker exec -u www-data ${nc_container} php occ user:list)
   oldIfs=IFS
@@ -30,8 +33,10 @@ for user in ${users[@]}; do
   if [ $? -eq "1" ]; then
     create_folder
   fi
-  docker exec -u root ${nc_container} mkdir /var/www/html/data/"${user}"/files/backup/${user}_${day}
-  docker exec -u root ${nc_container} rsync -a /var/www/html/data/"${user}"/files/models/ /var/www/html/data/"${user}"/files/backup/${user}_${day}
+#  docker exec -u root ${nc_container} mkdir /var/www/html/data/"${user}"/files/backup/${user}_${day}
+#  docker exec -u root ${nc_container} rsync -a /var/www/html/data/"${user}"/files/models/ /var/www/html/data/"${user}"/files/backup/${user}_${day}
+  docker exec -u root ${nc_container} duplicity --full-if-older-than ${num_day_before_full} --no-encryption --no-compression /var/www/html/data/"${user}"/files/models file:///var/www/html/data/"${user}"/files/backup
+  docker exec -u root ${nc_container} duplicity remove-all-but-n-full ${num_backup_to_keep} --force file:///var/www/html/data/"${user}"/files/backup
   docker exec -u root ${nc_container} chown -R www-data:root /var/www/html/data/"${user}"/files/backup
 done
 
