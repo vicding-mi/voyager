@@ -10,3 +10,13 @@ services:
       - ./files:/app/files
     ports:
       - "8000:8000"
+
+  aton:
+    container_name: aton
+    build:
+      context: ./aton
+      dockerfile: Dockerfile
+    volumes:
+      - .aton/aton:/aton
+    ports:
+      - "8080:8080"

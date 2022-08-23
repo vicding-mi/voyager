@@ -1,7 +1,17 @@
 .idea
 
+# ignore external docs
+Pure3D_Technical-Report.pdf
+applsci-11-11062.pdf
+diagram.graffle
+editor.user_case.graffle
+
 # ignore nc folder
 nc
 
 # ignore voyager models folder
 files
+aton/aton
+
+# sample voyager models
+models_org/

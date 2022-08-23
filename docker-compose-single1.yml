@@ -44,6 +44,18 @@ services:
 #      - "traefik.http.routers.voyager.entrypoints=http"
 #      - "traefik.http.services.voyager.loadbalancer.server.port=8000"
 
+  aton:
+    container_name: aton
+    hostname: aton
+    image: registry.diginfra.net/vicd/aton:latest
+    networks:
+      - traefik-public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.aton.rule=Host(`aton.${HOSTNAME}`)"
+      - "traefik.http.routers.aton.entrypoints=http"
+      - "traefik.http.services.aton.loadbalancer.server.port=8080"
+
   nc:
     container_name: nc
     image: registry.diginfra.net/vicd/nextcloud:latest
