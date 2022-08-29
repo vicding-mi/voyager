@@ -22,7 +22,7 @@ services:
       - --profile-url=https://testauthentication.di.huc.knaw.nl/OIDC/userinfo
       - --upstream=http://pure3dviewer:8000
     hostname: oauth2-proxy
-    restart: always
+    restart: unless-stopped
     networks:
       - traefik-public
     ports:
@@ -31,6 +31,7 @@ services:
   voyager:
     container_name: voyager
     hostname: pure3dviewer
+    restart: unless-stopped
     image: registry.diginfra.net/vicd/voyager:latest
     depends_on:
       - oauth2-proxy
@@ -47,6 +48,7 @@ services:
   aton:
     container_name: aton
     hostname: aton
+    restart: unless-stopped
     image: registry.diginfra.net/vicd/aton:latest
     networks:
       - traefik-public
@@ -59,6 +61,7 @@ services:
   nc:
     container_name: nc
     image: registry.diginfra.net/vicd/nextcloud:latest
+    restart: unless-stopped
     depends_on:
       - voyager
     volumes:
