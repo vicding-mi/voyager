@@ -20,18 +20,18 @@ create_folder() {
   docker exec -u root ${nc_container} chown -R www-data:root /var/www/html/data/"${user}"/files/models
 }
 
-printf "getting users from nc container %s\n" "$nc_container"
-users=$(get_users)
-
-printf "Make sure file permission is well set...\n"
-for user in ${users[@]}; do
-  printf "checking permission for user: [%s]\n" "${user}"
-  docker exec -u root ${nc_container} chown -R www-data:root /var/www/html/data/"${user}"/files/models
-    if [ $? -eq "1" ];
-    then
-      create_folder
-    fi
-done
+#printf "getting users from nc container %s\n" "$nc_container"
+#users=$(get_users)
+#
+#printf "Make sure file permission is well set...\n"
+#for user in ${users[@]}; do
+#  printf "checking permission for user: [%s]\n" "${user}"
+#  docker exec -u root ${nc_container} chown -R www-data:root /var/www/html/data/"${user}"/files/models
+#    if [ $? -eq "1" ];
+#    then
+#      create_folder
+#    fi
+#done
 
 printf "Scanning for new files...."
 docker exec -u www-data ${nc_container} php occ files:scan --all
