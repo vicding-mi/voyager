@@ -9,7 +9,9 @@ RUN apk update && \
     apk add vim wget curl bzip2 python3 py3-pip openssl-dev && \
     apk add --virtual build-dependencies build-base gcc wget git
 
-RUN git clone --recurse-submodules https://github.com/smithsonian/dpo-voyager /app
+RUN git clone --recurse-submodules https://github.com/Smithsonian/dpo-voyager.git /app && \
+    cd /app && \
+    git checkout tags/v0.21.1 -b 0.21.1
 WORKDIR /app
 RUN npm ci
 ENTRYPOINT ["/var/scripts/entrypoint.sh"]
