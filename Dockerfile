@@ -11,7 +11,8 @@ RUN apk update && \
 
 RUN git clone --recurse-submodules https://github.com/Smithsonian/dpo-voyager.git /app && \
     cd /app && \
-    git checkout tags/v0.21.1 -b 0.21.1
+    git checkout master
+#    git checkout tags/v0.22.0 -b 0.22.0
 WORKDIR /app
 RUN npm ci
 ENTRYPOINT ["/var/scripts/entrypoint.sh"]
