@@ -8,6 +8,8 @@ services:
     command:
       - --provider=oidc
       - --provider-display-name="HuC DI Testauthentication"
+      - --skip-auth-route="voyager-explorer*.*"
+      - --skip-auth-route="^/models/*"
       - --client-id=nl_clariah_dev_pure3d_viewer
       - --client-secret=7382ceac-e89e-11ec-8a46-2be05a3234a8
       - --redirect-url=https://viewer.${HOSTNAME}/oauth2/callback
@@ -33,6 +35,7 @@ services:
     hostname: pure3dviewer
     restart: unless-stopped
     image: registry.diginfra.net/vicd/voyager:latest
+    entrypoint: ["/var/scripts/entrypoint.sh"]
     depends_on:
       - oauth2-proxy
     volumes:
