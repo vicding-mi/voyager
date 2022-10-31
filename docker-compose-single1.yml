@@ -1,0 +1,79 @@
+version: "3"
+
+services:
+  oauth2-proxy:
+    container_name: oauth2-proxy
+    image: registry.diginfra.net/vicd/oauth2-proxy:v7.3.0
+    #    image: quay.io/oauth2-proxy/oauth2-proxy:v7.3.0
+    command:
+      - --provider=oidc
+      - --provider-display-name="HuC DI Testauthentication"
+      - --client-id=nl_clariah_dev_pure3d_viewer
+      - --client-secret=7382ceac-e89e-11ec-8a46-2be05a3234a8
+      - --redirect-url=https://viewer.${HOSTNAME}/oauth2/callback
+      - --oidc-issuer-url=https://testauthentication.di.huc.knaw.nl
+      - --cookie-secure=false
+      - --cookie-secret=Jq7t1en0NDaTM0Zj6Sq18utR
+      - --reverse-proxy=true
+      - --email-domain=*
+      #      - --email-domain=<second email domain>
+      #      - --authenticated-emails-file=<path/file.txt>
+      - --http-address=0.0.0.0:8080
+      - --profile-url=https://testauthentication.di.huc.knaw.nl/OIDC/userinfo
+      - --upstream=http://pure3dviewer:8000
+    hostname: oauth2-proxy
+    restart: unless-stopped
+    networks:
+      - traefik-public
+    ports:
+      - "0.0.0.0:8080:8080"
+
+  voyager:
+    container_name: voyager
+    hostname: pure3dviewer
+    restart: unless-stopped
+    image: registry.diginfra.net/vicd/voyager:latest
+    depends_on:
+      - oauth2-proxy
+    volumes:
+      - ./nc/html/data:/app/files/models # path to wd should be /app/files/${user}/files/models
+    networks:
+      - traefik-public
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.voyager.rule=Host(`viewer.${HOSTNAME}`)"
+#      - "traefik.http.routers.voyager.entrypoints=http"
+#      - "traefik.http.services.voyager.loadbalancer.server.port=8000"
+
+  aton:
+    container_name: aton
+    hostname: aton
+    restart: unless-stopped
+    image: registry.diginfra.net/vicd/aton:latest
+    networks:
+      - traefik-public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.aton.rule=Host(`aton.${HOSTNAME}`)"
+      - "traefik.http.routers.aton.entrypoints=http"
+      - "traefik.http.services.aton.loadbalancer.server.port=8080"
+
+  nc:
+    container_name: nc
+    image: registry.diginfra.net/vicd/nextcloud:latest
+    restart: unless-stopped
+    depends_on:
+      - voyager
+    volumes:
+      - ./nc/html:/var/www/html
+    networks:
+      - traefik-public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nc.rule=Host(`files.${HOSTNAME}`)"
+      - "traefik.http.routers.nc.entrypoints=http"
+      - "traefik.http.services.nc.loadbalancer.server.port=80"
+
+networks:
+  traefik-public:
+    external: true
