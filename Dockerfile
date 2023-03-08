@@ -1,4 +1,4 @@
-FROM registry.huc.knaw.nl/dockerhubproxy/library/node:17-alpine
+FROM registry.huc.knaw.nl/proxy_docker_hub/library/node:17-alpine
 
 # Install provisioning and startup scripts
 WORKDIR /var/scripts
@@ -11,7 +11,7 @@ RUN apk update && \
 
 RUN git clone --recurse-submodules https://github.com/Smithsonian/dpo-voyager.git /app && \
     cd /app && \
-    git checkout tags/v0.22.0 -b 0.22.0
+    git checkout tags/v0.26.1 -b 0.26.1
 WORKDIR /app
 RUN npm ci
 ENTRYPOINT ["/var/scripts/entrypoint.sh"]
