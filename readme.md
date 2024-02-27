@@ -1,3 +1,8 @@
+# This is the **old** pure3d stack which is based on docker compose
+New stack can be found [here]()
+
+
+
 # Build voyager 
 This repo builds voyager. There are 3 build files, for build time, run time and portainer respectively. 
 

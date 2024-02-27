@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <title>The Battle of Mount Street Bridge</title>
+    <style>
+        body {
+            background-color: black;
+        }
+
+        .model-wrapper {
+            top: 0;
+            position: fixed;
+            z-index: 1;
+            width: 100vw;
+            height: 100vh;
+            right: 0;
+            opacity: 0.0;
+        }
+
+        .text-wrapper {
+            width: 35%;
+            min-width: 300px;
+            max-width: 400px;
+            margin: 0 0 100vh 2%;
+            position: relative;
+            padding: 7px 13px 7px 13px;
+            background-color: rgba(34,34,34,0.85);
+            z-index: 200;
+            border: 1px solid #333;
+            color: #f1f1f1;
+        //font-size: 21px;
+            font-size: calc(15px + 0.390625vw);
+            overflow-wrap: break-word;
+            line-height: 1.5;
+        }
+
+        .article-wrapper {
+        //width: 100%;
+            max-width: 600px;
+            margin: 0 0 100vh 0;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 7px 13px 7px 13px;
+            z-index: 200;
+            color: #f1f1f1;
+        //font-size: 21px;
+            font-size: calc(15px + 0.390625vw);
+            overflow-wrap: break-word;
+            line-height: 1.5;
+        }
+
+        .article-bg {
+            width: 100%;
+            position: relative;
+            background-color: rgba(34,34,34,0.85);
+        //background-color: rgba(34,34,34,1.0);
+            z-index: 200;
+        }
+
+        .opaque {
+            background-color: rgba(34,34,34,0.0);
+        }
+
+        .centered {
+            text-align: center;
+        }
+    </style>
+
+    <script type="text/javascript" src="https://3d-api.si.edu/resources/js/voyager-explorer.min.js"></script>
+
+    <script>
+        var state = 0;
+        var modelOpacity = 0;
+        var lastScrollTop = 0;
+        let divList = [];
+        let transitionElem = null;
+
+        document.addEventListener('scroll', function(e) {
+            const modelBox = document.getElementById('model');
+            const voyagerElement = document.getElementsByTagName("voyager-explorer")[0];
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const goingDown = scrollTop > lastScrollTop;
+
+            const nextElement = divList[state+1];
+            const prevElement = state >=1 ? divList[state-1] : null;
+
+            if(goingDown) {
+                if(nextElement && isInView(nextElement, true)) {
+                    state++;
+                    voyagerElement.setTourStep(0, state > 0 ? state-1 : 0);
+                }
+            }
+            else {
+                if(prevElement && isInView(prevElement, false)) {
+                    state--;
+                    voyagerElement.setTourStep(0, state > 0 ? state-1 : 0);
+                }
+            }
+
+            if(!transitionElem) {
+                transitionElem = document.getElementsByClassName("transition-in")[0];
+            }
+
+            if(transitionElem) {
+                const rect = transitionElem.getBoundingClientRect();
+                const elemTop = rect.top;
+                if(elemTop > window.innerHeight) {
+                    modelBox.style.opacity = 0;
+                }
+                else if(elemTop < 0) {
+                    modelBox.style.opacity = 1.0;
+                }
+                else {
+                    const fadeDist = window.innerHeight*1.1;
+                    const bottomDist = window.innerHeight-elemTop;
+                    if(bottomDist <= fadeDist*1.1) {
+                        modelBox.style.opacity = Math.min(bottomDist/fadeDist, 1.0);
+                    }
+                }
+            }
+
+            lastScrollTop = scrollTop;
+        });
+
+        function isInView(element, isDown) {
+            const rect = element.getBoundingClientRect();
+            const elemTop = rect.top;
+            const elemBottom = rect.bottom;
+            const isVisible = isDown ? elemTop < window.innerHeight && elemBottom >= 0 : elemBottom > 0;
+            return isVisible;
+        }
+    </script>
+
+    <script src="js/script2.js" defer></script>
+</head>
+<body>
+<div class="model-wrapper" id="model">
+    <voyager-explorer root="./models/53460aac36aa15966973df3af49793209eee2cf8/files/Documents/models/Mount_Street/" document="scene.svx.json" uiMode="none" controls="false">
+    </voyager-explorer>
+</div>
+
+</div>
+</body>
+</html>
